@@ -35,6 +35,7 @@ final class RequestFactory
 
 	private function getUri(): string
 	{
+		// @phpcs:disable
 		return $_SERVER['REQUEST_URI'] ?? '/';
 	}
 
@@ -44,16 +45,20 @@ final class RequestFactory
 	 */
 	private function getHttpMethod(): string
 	{
+		// @phpcs:disable
 		$method = $_SERVER['REQUEST_METHOD'] ?? null;
 
 		if ($method === null) {
 			throw new MissingHttpMethodException;
 		}
 
+		// @phpcs:disable
 		if ($method === 'POST' && isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
+			// @phpcs:disable
 			$matched = preg_match('#^[A-Z]+\z#', $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']);
 
 			if ($matched === 1) {
+				// @phpcs:disable
 				$method = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'];
 			}
 		}
